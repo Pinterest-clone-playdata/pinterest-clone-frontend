@@ -5,7 +5,8 @@ import { Button } from "../../elements";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentEdit = (props) => {
-    const { _deActivateEdit, id } = props;
+    console.log(props);
+    const { _deActivateEdit, id, storedId } = props;
     const dispatch = useDispatch();
     const newComment = useRef();
 
@@ -23,6 +24,7 @@ const CommentEdit = (props) => {
     const submitComment = () => {
         const newCommentObj = {
             content: newComment.current.value,
+            pinId: Number(storedId),
         };
         dispatch(commentActions.editCommentAPI(id, newCommentObj));
         _deActivateEdit();

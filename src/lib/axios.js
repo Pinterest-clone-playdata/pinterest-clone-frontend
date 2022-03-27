@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "../shared/Cookie";
 
 const instance = axios.create({
-    baseURL: "http://3.35.219.78/",
+    baseURL: "http://localhost:9000/",
     headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -11,12 +11,22 @@ const instance = axios.create({
     },
 });
 
+instance.interceptors.request.use(request => {
+    console.log('Request', JSON.stringify(request, null, 2));
+    return request;
+})
+
+instance.interceptors.response.use(response => {
+    console.log('Response', JSON.stringify(response, null, 2));
+    return request;
+})
+
 export const apis = {
-    getPin: (id) => instance.get(`view/detail/${id}`),
-    searchPin: (word) => instance.get(`view/search/${word}`),
-    getComment: (id) => instance.get(`comment/${id}`),
-    addComment: (contents) => instance.post(`comment`, contents),
-    editComment: (id, contents) => instance.patch(`comment/${id}`, contents),
-    deleteComment: (id) => instance.delete(`comment/${id}`),
-    toggleLike: (id) => instance.post(`comment/like/${id}`),
+    getPin: (id) => instance.get(`v1/pin/${id}`),
+    searchPin: (word) => instance.get(`v1/pin/${word}`),
+    getComment: (id) => instance.get(`v1/pin-comment/${id}`),
+    addComment: (contents) => instance.post(`v1/pin-comment`, contents),
+    editComment: (id, contents) => instance.patch(`v1/pin-comment/${id}`, contents),
+    deleteComment: (id) => instance.delete(`v1/pin-comment/${id}`),
+    toggleLike: (id) => instance.post(`v1/comment-like/${id}`),
 };

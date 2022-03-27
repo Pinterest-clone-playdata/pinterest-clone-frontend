@@ -15,7 +15,7 @@ const getMainAPI = () => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "GET",
-            url: `http://3.35.219.78/view/main`,
+            url: `http://localhost:9000/v1/pin/home`,
             data: {},
             headers: {
                 "content-type": "application/json;charset=UTF-8",
@@ -25,7 +25,7 @@ const getMainAPI = () => {
             },
         })
             .then((res) => {
-                dispatch(getMain(res.data.pins));
+                dispatch(getMain(res.data.content));
             })
             .catch((err) => {
                 window.alert("잘못된 정보입니다");

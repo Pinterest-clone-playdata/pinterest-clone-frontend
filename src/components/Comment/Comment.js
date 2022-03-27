@@ -7,7 +7,10 @@ import { faHeart, faTools, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { CommentEdit, Modal } from "..";
 
 const Comment = (props) => {
-    const { comment, storedId, id, name } = props;
+    console.log("COMMENT");
+    console.log(props);
+    const { comment, storedId, name } = props;
+    const id = comment.commentId;
     // const name = localStorage.getItem("user_name");
     const dispatch = useDispatch();
     const [isEdit, setIsEdit] = useState(false);
@@ -31,12 +34,20 @@ const Comment = (props) => {
     };
 
     const toggleLike = () => {
-        dispatch(commentActions.toggleLikeAPI(id));
+        console.log("toggle call");
+        console.log(id)
+        console.log(props)
+        if (id == null) {
+            dispatch(commentActions.toggleLikeAPI(props.id));
+        } else {
+            dispatch(commentActions.toggleLikeAPI(id));
+        }
+        
     };
 
     return (
         <CommentBox>
-            {/* (성민) 유저프로필 이미지 아이디에서 첫번쨰에서 불러옴         */}
+            {/**/}
             <Avatar width="48px" fontSize="1rem">
                 {name}
             </Avatar>

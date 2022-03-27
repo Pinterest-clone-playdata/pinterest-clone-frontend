@@ -17,9 +17,12 @@ const AddPin = ({ history }) => {
     const SubmitAddPin = () => {
         const formData = new FormData();
         formData.append("title", title);
-        formData.append("desc", imgDes);
-        formData.append("image", imgFile);
-
+        formData.append("content", imgDes);
+        formData.append("multipartFile", imgFile);
+        formData.append("role", "PRIVATE");
+        for (let val of formData.values()) {
+            console.log(val);
+        }
         dispatch(addPinCreators.addPinAPI(formData));
     };
 

@@ -15,7 +15,7 @@ const addPinAPI = (formdata) => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "POST",
-            url: "http://3.35.219.78/pin/1",
+            url: "http://localhost:9000/v1/pin",
             headers: {
                 "Content-Type": "multipart/form-data; ",
                 accept: "application/json",

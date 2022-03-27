@@ -17,7 +17,7 @@ const SignupCard = (props) => {
         initialValues: {
             email: "",
             password: "",
-            age: "",
+            nickname: "",
         },
 
         validationSchema: Yup.object({
@@ -25,13 +25,11 @@ const SignupCard = (props) => {
                 .email("올바른 이메일 주소가 아닙니다.")
                 .required("빠뜨린 부분이 있네요! 잊지 말고 이메일을 추가하세요."),
             password: Yup.string()
-                .min(8, "비밀번호가 너무 짧네요! 8자 이상 입력하세요.")
-                .matches(/[a-zA-Z0-9]/, "더 강력한 비밀번호를 사용하세요.")
-                .required("패스워드를 정확하게 입력해주세요."),
-            age: Yup.string()
-
-                .matches(/[0-9]/, "숫자로 입력해 주시길 바랍니다")
-                .required("나이를 숫자로 한번 더 입력해주세요."),
+                .matches(/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,30}$/, "비밀번호는 영문 1자 이상, 숫자 1자 이상 포함시켜 주세요.")
+                .required("비밀번호를 입력해주세요."),
+            nickname: Yup.string()
+                .matches(/^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,50}$/, "닉네임은 1글자 이상 50자 이하의 영문 또는 한글로 입력해 주세요")
+                .required("닉네임을 입력해주세요"),
         }),
 
         onSubmit: (values) => {
@@ -56,7 +54,7 @@ const SignupCard = (props) => {
             <Text size="1.6rem" margin="0 0 30px 0">
                 시도해 볼 만한 새로운 아이디어 찾기
             </Text>
-            {idCheck ? (
+            {loginMode ? (
                 <LoginForm />
             ) : (
                 <form onSubmit={formik.handleSubmit}>
@@ -71,7 +69,7 @@ const SignupCard = (props) => {
                             value={formik.values.email}
                             placeholder="이메일"
                             _onBlur={(e) => {
-                                dispatch(userActions.loginActionAPI(e.target.value));
+                                // dispatch(userActions.loginActionAPI(e.target.value));
                             }}
                         />
                         {formik.touched.email && formik.errors.email ? (
@@ -100,15 +98,15 @@ const SignupCard = (props) => {
                             margin="5px 0"
                             height="40px"
                             width="268px"
-                            name="age"
+                            name="nickname"
                             type="text"
                             _onChange={formik.handleChange}
-                            value={formik.values.age}
-                            placeholder="나이를 입력해주세요"
+                            value={formik.values.nickname}
+                            placeholder="닉네임을 입력해주세요"
                         />
-                        {formik.touched.age && formik.errors.age ? (
+                        {formik.touched.nickname && formik.errors.nickname ? (
                             <Text margin="5px 0" color="#e60023">
-                                {formik.errors.age}
+                                {formik.errors.nickname}
                             </Text>
                         ) : null}
 

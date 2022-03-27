@@ -26,22 +26,24 @@ const loginAPI = (value) => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "POST",
-            url: "http://3.35.219.78/user/login",
+            url: "http://localhost:9000/v1/auth/signin",
             data: {
                 email: value.email,
                 password: value.password,
             },
             headers: {
-                "content-type": "application/json;charset=UTF-8",
+                "content-type": "application/json",
                 accept: "application/json",
-                "Access-Control-Allow-Origin": "*",
-                authorization: `Bearer ${getCookie("user_login")}`,
+                "Access-Control-Allow-Origin": "*"
             },
         })
             .then((res) => {
-                const jwtToken = res.data.token;
-                const _id = res.data.nickname;
 
+                const jwtToken = res.data.message.split(" ").pop();
+                const _id = res.data.data[0];
+                console.log("jwt")
+                console.log(res);
+                console.log(_id);
                 setCookie("user_login", jwtToken);
                 localStorage.setItem("user_name", _id);
                 dispatch(
@@ -63,7 +65,7 @@ const loginActionAPI = (email) => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "GET",
-            url: `http://3.35.219.78/user/login/${email}`,
+            url: `http://localhost:9000/v1/auth/signin/${email}`,
             data: {},
         })
             .then((res) => {
@@ -80,7 +82,7 @@ const loginCheckAPI = () => {
     return (dispatch, getState, { history }) => {
         axios({
             method: "GET",
-            url: `http://3.35.219.78/`,
+            url: `http://localhost:9000/v1/pin/100`,
             data: {},
             headers: {
                 "content-type": "application/json;charset=UTF-8",
@@ -91,11 +93,12 @@ const loginCheckAPI = () => {
         })
             .then((res) => {
                 // 로그인이 안되어있는 상태
-                dispatch(loginCheck(false));
+                console.log("logincheck1234");
+                dispatch(loginCheck(true));
             })
             .catch((err) => {
                 // 로그인이 되어있는 상태
-                dispatch(loginCheck(true));
+                dispatch(loginCheck(false));
             });
     };
 };
@@ -104,25 +107,22 @@ const signupAPI = (value) => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "POST",
-            url: "http://3.35.219.78/user/signup",
+            url: "http://localhost:9000/v1/auth/signup",
             data: {
                 email: value.email,
                 password: value.password,
-                age: value.age,
+                username: value.nickname,
             },
             headers: {
                 "content-type": "application/json;charset=UTF-8",
                 accept: "application/json",
                 "Access-Control-Allow-Origin": "*",
-                authorization: `Bearer ${getCookie("user_login")}`,
             },
         })
             .then((res) => {
-                const jwtToken = res.data.token;
-                const _id = res.data.nickname;
+                const username = value.nickname;
 
-                setCookie("user_login", jwtToken);
-                localStorage.setItem("user_name", _id);
+                localStorage.setItem("user_name", username);
 
                 console.log(res); // signup 정보 확인
                 window.alert("축하합니다");

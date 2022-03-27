@@ -20,7 +20,7 @@ const PostSaveInfo = (props) => {
                 flex_wrap="wrap"
                 justify_content="flex-start"
             >
-                {/* (성민) 유저프로필 이미지 아이디에서 첫번쨰에서 불러옴         */}
+                {/**/}
                 <Avatar width="36px" height="36px" fontSize="0.8rem">
                     {name.slice(0, 1).toUpperCase()}
                 </Avatar>

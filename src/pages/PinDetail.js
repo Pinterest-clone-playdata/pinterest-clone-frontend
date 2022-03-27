@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     PinImage,
@@ -19,9 +19,12 @@ const PinDetail = (props) => {
     const storedId = Number(props.match.params.id);
 
     useEffect(() => {
-        dispatch(pinActions.getPinAPI(storedId));
+        dispatch(pinActions.getPinAPI(storedId)); 
     }, []);
 
+    console.log("Pindetail123")
+    console.log(props);
+    console.log(pinDetail);
     return (
         <PinContainer
             className="PostWrapper"
@@ -32,7 +35,7 @@ const PinDetail = (props) => {
             border_radius="32px"
             box_shadow="0 1px 20px 0 rgb(0 0 0 / 10%)"
         >
-            <PinImage className="PostImageBox" imgURL={pinDetail.imgURL} />
+            <PinImage className="PostImageBox" imgURL={pinDetail.path} />
             <PinContainer
                 className="PostDescBox"
                 width="50%"
@@ -40,9 +43,9 @@ const PinDetail = (props) => {
             >
                 <PinHeader imgURL={pinDetail.imgURL} />
                 <PinDesc
-                    webSite={pinDetail.webSite}
+                    webSite={""}
                     title={pinDetail.title}
-                    desc={pinDetail.desc}
+                    desc={pinDetail.content}
                 />
                 <PinContainer width="90%" flex_direction="column" align_items="center">
                     <PinWriterInfo user={pinWriter} />

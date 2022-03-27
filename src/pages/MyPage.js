@@ -17,7 +17,6 @@ const MyPage = (props) => {
     useEffect(() => {
         dispatch(MyActions.getMyAPI());
     }, []);
-
     return (
         <Wrapper className="Wrapper">
             <Flex mg="16px 0px" ai="center">

@@ -16,7 +16,7 @@ const getMyAPI = () => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "GET",
-            url: `http://3.35.219.78/view/my`,
+            url: `http://localhost:9000/v1/pin/user`,
             data: {},
             headers: {
                 "content-type": "application/json;charset=UTF-8",

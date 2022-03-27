@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { getCookie } from "../../shared/Cookie";
 
@@ -23,7 +24,7 @@ const initialState = {
         imgURL: "https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2014/11/img196.jpg",
         title: "임시 테스트 제목입니다.",
         desc: "임시 테스트 설명입니다.",
-        webSite: "https://www.naver.com/",
+        webSite: "",
         user: "임시 테스트 유저",
         board: "임시 테스트 보드",
     },
@@ -38,7 +39,7 @@ const getPinAPI = (id) => {
         // apis.getPin(id)
         axios({
             method: "GET",
-            url: `http://3.35.219.78/view/detail/${id}`,
+            url: `http://localhost:9000/v1/pin/${id}`,
             data: { id },
             headers: {
                 "content-type": "application/json;charset=UTF-8",
@@ -48,10 +49,12 @@ const getPinAPI = (id) => {
             },
         })
             .then((res) => {
-                const pinDetail = res.data.pinDetail;
-                const pinId = res.data.pinDetail.id;
-                const pinWriter = res.data.pinDetail.User.nickname;
-                const pinBoard = res.data.pinDetail.Board.boardName;
+                const pinDetail = res.data.data[0];
+                console.log(id)
+                console.log(res)
+                const pinId = pinDetail.id;
+                const pinWriter = pinDetail.username;
+                const pinBoard = "게시판";
                 localStorage.setItem("pinId", pinId);
                 dispatch(getPin(pinDetail, pinId, pinWriter, pinBoard));
             })

@@ -27,7 +27,7 @@ const Mainboard = (props) => {
                                         history.push(`/detail/${pin.id}`);
                                     }}
                                 >
-                                    <img src={pin.imgURL} alt="pin" />
+                                    <img src={pin.path} alt="pin" />
                                 </div>
                             </ImageContainer>
                         </ImageWrapper>

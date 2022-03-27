@@ -17,7 +17,7 @@ const getSearchAPI = (word) => {
         // apis.searchPin(word)
         axios({
             method: "GET",
-            url: `http://3.35.219.78/view/search/${word}`,
+            url: `http://localhost:9000/v1/pin/${word}`,
             data: { word },
             headers: {
                 "content-type": "application/json;charset=UTF-8",
@@ -27,6 +27,7 @@ const getSearchAPI = (word) => {
             },
         })
             .then((res) => {
+                console.log("dsfasdfasdf")
                 const resultPins = res.data.pins;
                 dispatch(getSearch(resultPins, word));
                 localStorage.setItem("word", word);

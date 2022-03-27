@@ -8,6 +8,8 @@ const CommentWrite = (props) => {
     const dispatch = useDispatch();
     const { hidden, comments, storedId } = props;
     const name = localStorage.getItem("user_name");
+    console.log("localstorage")
+    console.log(name);
 
     let [isActive, setIsActive] = useState(false);
     let [isWrite, setIsWrite] = useState(false);
@@ -37,7 +39,7 @@ const CommentWrite = (props) => {
         if (commentText.current.value) {
             const commentObj = {
                 content: commentText.current.value,
-                pin: Number(storedId),
+                pinId: Number(storedId),
             };
             dispatch(commentActions.addCommentAPI(commentObj));
             commentText.current.value = "";
@@ -56,7 +58,7 @@ const CommentWrite = (props) => {
                 <Text width="100%" font_size="14px" font_weight="400" text_align="left">
                     피드백을 공유하거나 질문을 하거나 칭찬을 남겨주세요
                 </Text>
-                {/* (성민) 유저프로필 이미지 아이디에서 첫번쨰에서 불러옴         */}
+                {/* */}
                 <Avatar fontSize="1.5rem">{name.slice(0, 1).toUpperCase()}</Avatar>
                 <Input
                     type="textarea"

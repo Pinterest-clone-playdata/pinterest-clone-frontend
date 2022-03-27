@@ -19,8 +19,7 @@ const LoginForm = () => {
                 .email("올바른 이메일 주소가 아닙니다.")
                 .required("빠뜨린 부분이 있네요! 잊지 말고 이메일을 추가하세요."),
             password: Yup.string()
-                .min(8, "비밀번호가 너무 짧네요! 6자 이상 입력하세요.")
-                .matches(/[a-zA-Z0-9]/, "더 강력한 비밀번호를 사용하세요.")
+                .matches(/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,30}$/, "비밀번호는 8자 이상 30자 이하의 영문, 숫자를 모두 1자 이상 포함한 문자열입니다")
                 .required("패스워드를 입력해주세요."),
         }),
 
@@ -40,7 +39,7 @@ const LoginForm = () => {
                     type="text"
                     _onChange={formik.handleChange}
                     value={formik.values.email}
-                    placeholder="아이디를 입력하세요"
+                    placeholder="이메일을 입력하세요"
                 />
                 {formik.touched.email && formik.errors.email ? (
                     <Text margin="5px 0" color="#e60023">
